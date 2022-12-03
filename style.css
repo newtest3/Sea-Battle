@@ -1,0 +1,66 @@
+body {
+   background: rgb(237, 248, 250);
+}
+.userMap {
+   margin: 20px 0 0 20px;
+}
+
+.userMap__table {
+   border-collapse: collapse;
+   display: flex;
+   justify-content: space-around;
+}
+
+.tdata {
+   border: 2px solid black;
+   height: 40px;
+   width: 40px;
+   font-size: 30px;
+}
+
+.addColorTableData {
+   /* background: rgb(23, 243, 232); */
+   background-image: url('./img/ship.jpg');
+   background-size: 40px 40px;
+   /* outline: 2px solid green; */
+}
+
+.shipsEnd {
+margin-bottom: -25px;
+}
+
+.hideSpaceShip {
+   background: rgb(237, 248, 250);
+   outline: none
+}
+
+.shipWasFound {
+   /* background: rgb(248, 2, 2); */
+   /* text-align: center; */
+   background-image: url('./img/fire1.jpg');
+   background-size: 40px 40px;
+}
+
+.shipWasNotFound {
+   /* background: rgb(2, 248, 64); */
+   text-align: center;
+   background-image: url('./img/miss1.jpg');
+   background-size: 40px 40px;
+}
+.shipsCrashed{
+   color: red;
+}
+
+.radioButtonsShips {
+   display: flex;
+   justify-content: space-around;
+   width: 220px;
+}
+
+.radioButton {
+   display: flex;
+   justify-content: space-around;
+}
+.hideElement {
+   display: none;
+}
