@@ -73,7 +73,7 @@ function user() {
          showShips.addEventListener('click', event => {
 
             tableData.addEventListener('dblclick', () => {
-               if (showShips.checked == true) {
+               if (showShips.checked == true && numCrashedShips > 0) {
                   tableData.classList.remove('addColorTableData');
                   positionShipObj[positionShip] = false;
                   numPasteShips--;
