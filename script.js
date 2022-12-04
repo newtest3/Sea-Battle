@@ -38,6 +38,13 @@ function user() {
          hideShips.disabled = false;
       }
    }
+   function disabledShowShips() {
+      if (numCrashedShips > 1) {
+         showShips.disabled = true;
+      } else {
+         showShips.disabled = false;
+      }
+   }
 
    for (let i = 0; i <= 10; i++) {
       let tableRow = document.createElement('tr');
@@ -93,7 +100,6 @@ function user() {
 
                tbody.append(shipsPaste);
             }
-            console.log(event.type);
          });
 
          // -------------- Hide Ships -----------------------
@@ -105,23 +111,27 @@ function user() {
          hideShips.name = 'viewShips';
 
          hideShips.addEventListener('click', event => {
+            disabledShowShips();
             tableData.classList.add('hideSpaceShip');
-            tableData.addEventListener('click', () => {
+            tableData.addEventListener('click', function fireShip() {
+               disabledShowShips();
                if (i !== 0) {
                   if (positionShipObj[positionShip] == true) {
+
                      tableData.classList.add('shipWasFound');
                      let fire = document.createElement('audio');
                      fire.src = './sound/fire.mp3';
                      fire.autoplay = true;
                      tableData.append(fire);
                      numCrashedShips--;
+                     tableData.removeEventListener('click', fireShip);
+
                      if (numCrashedShips != 0) {
                         shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
                      } else {
                         shipsCrashed.classList.add('shipsCrashed');
                         shipsCrashed.textContent = `You LOST!`;
                      }
-
                   } else {
                      tableData.classList.add('shipWasNotFound');
                      let miss = document.createElement('audio');
