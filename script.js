@@ -1,6 +1,12 @@
 
 
 // --------------- Map of the user ships ---------------------
+let newGame = document.createElement('button');
+newGame.classList.add('newGame');
+newGame.textContent = 'New Game';
+newGame.addEventListener('click', () => {
+   window.location.reload();
+});
 
 function user() {
 
@@ -175,7 +181,7 @@ function user() {
 
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
-
+   userMap.prepend(newGame);
 }
 
 
