@@ -67,14 +67,14 @@ function user() {
          showShips.addEventListener('click', event => {
 
             tableData.addEventListener('dblclick', () => {
-               tableData.classList.remove('addColorTableData');
-               positionShipObj[positionShip] = false;
-               numPasteShips--;
-               disabledHideShips();
-               shipsPaste.textContent = `You have ${numPasteShips} ships!`;
-               // console.log(num);
+               if (showShips.checked == true) {
+                  tableData.classList.remove('addColorTableData');
+                  positionShipObj[positionShip] = false;
+                  numPasteShips--;
+                  shipsPaste.textContent = `You have ${numPasteShips} ships!`;
+                  console.log(positionShipObj[positionShip]);
+               }
             });
-
             tableData.classList.remove('hideSpaceShip');
             tableData.addEventListener('click', () => {
 
@@ -90,7 +90,6 @@ function user() {
                      paste.autoplay = true;
                      tableData.append(paste);
                   }
-                  // console.log(num);
                }
                shipsPaste.textContent = `You have ${numPasteShips} ships!`;
                disabledHideShips();
@@ -113,6 +112,7 @@ function user() {
          hideShips.addEventListener('click', event => {
             disabledShowShips();
             tableData.classList.add('hideSpaceShip');
+
             tableData.addEventListener('click', function fireShip() {
                disabledShowShips();
                if (i !== 0) {
@@ -146,6 +146,10 @@ function user() {
                tbody.append(shipsCrashed);
             }
          });
+
+
+
+
 
          radioButtonsShips.className = 'radioButtonsShips';
 
@@ -185,6 +189,7 @@ function user() {
 +function userSecond() {
    user();
 }();
+
 
 
 
