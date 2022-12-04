@@ -72,7 +72,7 @@ function user() {
                   positionShipObj[positionShip] = false;
                   numPasteShips--;
                   shipsPaste.textContent = `You have ${numPasteShips} ships!`;
-                  console.log(positionShipObj[positionShip]);
+                  disabledHideShips();
                }
             });
             tableData.classList.remove('hideSpaceShip');
@@ -148,9 +148,6 @@ function user() {
          });
 
 
-
-
-
          radioButtonsShips.className = 'radioButtonsShips';
 
          radioButtonsShips.prepend(showName);
@@ -160,8 +157,7 @@ function user() {
          radioButtonsShips.append(hideShips);
 
          if (tableRow.textContent[0] == 0) {
-            tableRow.textContent = '"';
-
+            tableRow.textContent = ':';
          }
          if (i == 0) {
             tableData.textContent = letters[j];
