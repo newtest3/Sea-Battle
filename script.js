@@ -8,6 +8,17 @@ newGame.addEventListener('click', () => {
    window.location.reload();
 });
 
+let salute = document.createElement('button');
+salute.classList.add('salute');
+
+salute.textContent = 'salute';
+salute.addEventListener('click', ()=> {
+
+});
+
+
+
+
 function user() {
 
    let letters = 'ABCDEFGHIJ';
@@ -42,13 +53,6 @@ function user() {
          hideShips.disabled = true;
       } else {
          hideShips.disabled = false;
-      }
-   }
-   function disabledShowShips() {
-      if (numCrashedShips > 1) {
-         showShips.disabled = true;
-      } else {
-         showShips.disabled = false;
       }
    }
 
@@ -116,11 +120,12 @@ function user() {
          hideShips.name = 'viewShips';
 
          hideShips.addEventListener('click', event => {
-            disabledShowShips();
+            showShips.disabled = true;
+           
             tableData.classList.add('hideSpaceShip');
+            
 
             tableData.addEventListener('click', function fireShip() {
-               disabledShowShips();
                if (i !== 0) {
                   if (positionShipObj[positionShip] == true) {
 
@@ -130,6 +135,9 @@ function user() {
                      fire.autoplay = true;
                      tableData.append(fire);
                      numCrashedShips--;
+                     
+                    
+                     console.log(numCrashedShips)
                      tableData.removeEventListener('click', fireShip);
 
                      if (numCrashedShips != 0) {
@@ -146,11 +154,17 @@ function user() {
                      tableData.append(miss);
                   }
                }
+               
+               // disabledShowShips();
             });
+            
+            shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
+            
             if (event.type == 'click') {
                shipsPaste.classList.add('hideElement')
                tbody.append(shipsCrashed);
             }
+           
          });
 
 
@@ -181,7 +195,9 @@ function user() {
 
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
+   userMap.append(salute);
    userMap.prepend(newGame);
+
 }
 
 
