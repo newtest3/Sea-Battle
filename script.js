@@ -8,13 +8,7 @@ newGame.addEventListener('click', () => {
    window.location.reload();
 });
 
-let salute = document.createElement('button');
-salute.classList.add('salute');
 
-salute.textContent = 'salute';
-salute.addEventListener('click', ()=> {
-
-});
 
 
 
@@ -22,10 +16,10 @@ salute.addEventListener('click', ()=> {
 function user() {
 
    let letters = 'ABCDEFGHIJ';
-   let computerMode = document.querySelector('.computerMode');
-   let modeDevelopment = document.querySelector('.modeDevelopment');
+   // let computerMode = document.querySelector('.computerMode');
+   // let modeDevelopment = document.querySelector('.modeDevelopment');
 
-   let twoPlayersMode = document.querySelector('.twoPlayersMode');
+   // let twoPlayersMode = document.querySelector('.twoPlayersMode');
    let userMap__table = document.querySelector('.userMap__table');
    let userMap = document.querySelector('.userMap');
    let positionShipObj = {};
@@ -121,9 +115,9 @@ function user() {
 
          hideShips.addEventListener('click', event => {
             showShips.disabled = true;
-           
+
             tableData.classList.add('hideSpaceShip');
-            
+
 
             tableData.addEventListener('click', function fireShip() {
                if (i !== 0) {
@@ -135,8 +129,7 @@ function user() {
                      fire.autoplay = true;
                      tableData.append(fire);
                      numCrashedShips--;
-                     
-                    
+
                      console.log(numCrashedShips)
                      tableData.removeEventListener('click', fireShip);
 
@@ -145,6 +138,7 @@ function user() {
                      } else {
                         shipsCrashed.classList.add('shipsCrashed');
                         shipsCrashed.textContent = `You LOST!`;
+                        victoryGame();
                      }
                   } else {
                      tableData.classList.add('shipWasNotFound');
@@ -154,17 +148,17 @@ function user() {
                      tableData.append(miss);
                   }
                }
-               
+
                // disabledShowShips();
             });
-            
+
             shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
-            
+
             if (event.type == 'click') {
                shipsPaste.classList.add('hideElement')
                tbody.append(shipsCrashed);
             }
-           
+
          });
 
 
@@ -195,7 +189,6 @@ function user() {
 
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
-   userMap.append(salute);
    userMap.prepend(newGame);
 
 }
@@ -229,4 +222,104 @@ function user() {
 // });
 
 // -------------------------------------------------
+
+function victoryGame() {
+   let mainContainer = document.querySelector('.mainContainer');
+   // saluteButton = document.querySelector('.saluteButton');
+   victorySalute();
+   function victorySalute() {
+
+      let num = 0;
+      let victory = setInterval(() => {
+         num++;
+         if (num == 7) {
+            clearInterval(victory);
+         }
+         confirmSalute('20px', '70px', 900);
+         confirmSalute('100px', '140px', 1300);
+         confirmSalute('60px', '450px', 1600);
+         confirmSalute('120px', '550px', 1900);
+         confirmSalute('10px', '300px', 2200);
+      }, 1500);
+      setTimeout(() => {
+         let song = document.createElement('audio');
+         song.src = './sound/ovacii.mp3';
+         song.autoplay = true;
+      }, 2000);
+
+   };
+
+   function confirmSalute(left, right, time) {
+      let saluteContainer = document.createElement('div');
+      saluteContainer.className = 'saluteContainer';
+      saluteContainer.style.margin = `${left} ${right}`;
+
+      let circle = document.createElement('div'),
+         circleTwo = document.createElement('div'),
+         circleThree = document.createElement('div'),
+         circleFour = document.createElement('div'),
+         circleFive = document.createElement('div'),
+         circleSix = document.createElement('div'),
+         circleSeven = document.createElement('div'),
+         circleEight = document.createElement('div'),
+         circleNine = document.createElement('div');
+
+
+      // circle.style.transform = 'translate(200px, 300px)';
+      // circle.style.background = `rgb(${randomColor(1, 255)}, ${randomColor(1, 255)}, ${randomColor(1, 255)})`;
+
+      addClass(circleTwo);
+      addClass(circleThree);
+      addClass(circleFour);
+      addClass(circleFive);
+      addClass(circleSix);
+      addClass(circleSeven);
+      addClass(circleEight);
+      addClass(circleNine);
+
+      setTimeout(() => {
+
+         // circle.style.background = 'rgb(255, 255, 255)';
+
+         addStyle(circleTwo, '60px', '150px');
+         addStyle(circleThree, '200px', '60px');
+         addStyle(circleFour, '350px', '135px');
+         addStyle(circleFive, '400px', '243px');
+         addStyle(circleSix, '20px', '240px');
+         addStyle(circleSeven, '60px', '340px');
+         addStyle(circleEight, '200px', '400px');
+         addStyle(circleNine, '350px', '350px');
+
+      }, time);
+
+      saluteContainer.append(circle);
+      saluteContainer.append(circleTwo);
+      saluteContainer.append(circleThree);
+      saluteContainer.append(circleFour);
+      saluteContainer.append(circleFive);
+      saluteContainer.append(circleSix);
+      saluteContainer.append(circleSeven);
+      saluteContainer.append(circleEight);
+      saluteContainer.append(circleNine);
+
+      mainContainer.append(saluteContainer);
+   }
+
+
+   function addStyle(item, distanceRight, distanceDown) {
+      item.style.transform = `translate(${distanceRight}, ${distanceDown})`;
+      item.style.background = `rgb(${randomColor(1, 255)}, ${randomColor(1, 255)}, ${randomColor(1, 255)})`;
+      setTimeout(() => {
+         item.style.opacity = '0';
+      }, 1000);
+   }
+
+   function randomColor(min, max) {
+      return String(Math.round(Math.random() * ((max - min) + min)));
+
+   }
+   function addClass(item) {
+      item.classList.add('circleAll');
+   }
+}
 
