@@ -8,18 +8,10 @@ newGame.addEventListener('click', () => {
    window.location.reload();
 });
 
-
-
-
-
-
 function user() {
 
    let letters = 'ABCDEFGHIJ';
-   // let computerMode = document.querySelector('.computerMode');
-   // let modeDevelopment = document.querySelector('.modeDevelopment');
 
-   // let twoPlayersMode = document.querySelector('.twoPlayersMode');
    let userMap__table = document.querySelector('.userMap__table');
    let userMap = document.querySelector('.userMap');
    let positionShipObj = {};
@@ -36,6 +28,10 @@ function user() {
    shipsPaste.classList.add('shipsEnd');
    let shipsCrashed = document.createElement('p');
    shipsCrashed.classList.add('shipsEnd');
+
+   let summRecordClick = 0,
+   recordClick = document.createElement('p');
+   recordClick.classList.add('recordClick');
 
    let numPasteShips = 0;
    let numCrashedShips = 20;
@@ -120,8 +116,15 @@ function user() {
 
 
             tableData.addEventListener('click', function fireShip() {
+
+
                if (i !== 0) {
+                  summRecordClick++;
+                  recordClick.textContent = `You have ${summRecordClick} clicks!`;
+                  
+
                   if (positionShipObj[positionShip] == true) {
+
 
                      tableData.classList.add('shipWasFound');
                      let fire = document.createElement('audio');
@@ -134,6 +137,7 @@ function user() {
                      tableData.removeEventListener('click', fireShip);
 
                      if (numCrashedShips != 0) {
+
                         shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
                      } else {
                         shipsCrashed.classList.add('shipsCrashed');
@@ -148,8 +152,8 @@ function user() {
                      tableData.append(miss);
                   }
                }
-
-               // disabledShowShips();
+               tbody.append(recordClick);
+               
             });
 
             shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
@@ -182,17 +186,14 @@ function user() {
          tableData.classList.add('tdata');
          tableRow.append(tableData);
          tbody.append(tableRow);
-
       }
-
    }
 
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
    userMap.prepend(newGame);
-
+   
 }
-
 
 +function userFirst() {
    user();
@@ -202,30 +203,10 @@ function user() {
 }();
 
 
-
-
-// -------------- Show Two Players Mode ---------------
-
-// twoPlayersMode.addEventListener('click', function twoPlayers() {
-//    userFirst();
-//    userSecond();
-//    this.removeEventListener('click', twoPlayers);
-// });
-
-// -----------------------------------------------
-
-
-// -------------- Show Computer Mode ---------------
-
-// computerMode.addEventListener('click', () => {
-
-// });
-
-// -------------------------------------------------
+// ------------------- Salute ---------------------------
 
 function victoryGame() {
    let mainContainer = document.querySelector('.mainContainer');
-   // saluteButton = document.querySelector('.saluteButton');
    victorySalute();
    function victorySalute() {
 
@@ -264,10 +245,6 @@ function victoryGame() {
          circleEight = document.createElement('div'),
          circleNine = document.createElement('div');
 
-
-      // circle.style.transform = 'translate(200px, 300px)';
-      // circle.style.background = `rgb(${randomColor(1, 255)}, ${randomColor(1, 255)}, ${randomColor(1, 255)})`;
-
       addClass(circleTwo);
       addClass(circleThree);
       addClass(circleFour);
@@ -278,8 +255,6 @@ function victoryGame() {
       addClass(circleNine);
 
       setTimeout(() => {
-
-         // circle.style.background = 'rgb(255, 255, 255)';
 
          addStyle(circleTwo, '60px', '150px');
          addStyle(circleThree, '200px', '60px');
