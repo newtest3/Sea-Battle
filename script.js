@@ -3,10 +3,20 @@
 // --------------- Map of the user ships ---------------------
 let newGame = document.createElement('button');
 newGame.classList.add('newGame');
-newGame.textContent = 'New Game';
+newGame.textContent = 'New game';
 newGame.addEventListener('click', () => {
    window.location.reload();
 });
+
+let resetResult = document.createElement('button');
+resetResult.classList.add('resetResult');
+resetResult.textContent = 'Reset the best score';
+resetResult.addEventListener('click', () => {
+   localStorage.removeItem('key');
+   window.location.reload();
+});
+
+let strNumClick = document.createElement('p');
 
 function user() {
 
@@ -30,7 +40,8 @@ function user() {
    shipsCrashed.classList.add('shipsEnd');
 
    let summRecordClick = 0,
-   recordClick = document.createElement('p');
+
+      recordClick = document.createElement('p');
    recordClick.classList.add('recordClick');
 
    let numPasteShips = 0;
@@ -110,6 +121,7 @@ function user() {
          hideShips.name = 'viewShips';
 
          hideShips.addEventListener('click', event => {
+            let objClick = {};
             showShips.disabled = true;
 
             tableData.classList.add('hideSpaceShip');
@@ -117,14 +129,15 @@ function user() {
 
             tableData.addEventListener('click', function fireShip() {
 
-
                if (i !== 0) {
-                  summRecordClick++;
+                  if (objClick[null] !== positionShip) {
+                     objClick[null] = positionShip;
+                     summRecordClick++;
+                  }
+
                   recordClick.textContent = `You have ${summRecordClick} clicks!`;
-                  
 
                   if (positionShipObj[positionShip] == true) {
-
 
                      tableData.classList.add('shipWasFound');
                      let fire = document.createElement('audio');
@@ -133,7 +146,6 @@ function user() {
                      tableData.append(fire);
                      numCrashedShips--;
 
-                     console.log(numCrashedShips)
                      tableData.removeEventListener('click', fireShip);
 
                      if (numCrashedShips != 0) {
@@ -142,6 +154,16 @@ function user() {
                      } else {
                         shipsCrashed.classList.add('shipsCrashed');
                         shipsCrashed.textContent = `You LOST!`;
+
+                        if (Number(localStorage.getItem('key')) == 0) {
+                           localStorage.setItem('key', summRecordClick);
+                        } else if (summRecordClick <= Number(localStorage.getItem('key'))) {
+                           alert('Great result. You set a new record!');
+                           localStorage.removeItem('key');
+
+                           localStorage.setItem('key', summRecordClick);
+                           console.log(Number(localStorage.getItem('key')));
+                        }
                         victoryGame();
                      }
                   } else {
@@ -153,7 +175,6 @@ function user() {
                   }
                }
                tbody.append(recordClick);
-               
             });
 
             shipsCrashed.textContent = `You have ${numCrashedShips} ships!`;
@@ -189,10 +210,17 @@ function user() {
       }
    }
 
+
+   //-------------------- strNumClick-------- 
+   strNumClick.textContent = `The best winning result is - ${Number(localStorage.getItem('key'))} clicks!`;
+   //-------------------- strNumClick-------- 
+
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
+   userMap.prepend(resetResult);
    userMap.prepend(newGame);
-   
+
+   userMap.prepend(strNumClick);
 }
 
 +function userFirst() {
@@ -201,6 +229,7 @@ function user() {
 +function userSecond() {
    user();
 }();
+
 
 
 // ------------------- Salute ---------------------------

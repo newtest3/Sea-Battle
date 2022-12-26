@@ -1,5 +1,5 @@
 body {
-   background: rgb(237, 248, 250);
+   background: rgb(200, 211, 250);
 }
 .userMap {
    margin: 20px 0 0 20px;
@@ -21,7 +21,7 @@ body {
 .addColorTableData {
    /* background: rgb(23, 243, 232); */
    background-image: url('./img/ship.jpg');
-   background-size: 40px 40px;
+   background-size: 42px 42px;
    /* outline: 2px solid green; */
 }
 
@@ -30,7 +30,7 @@ margin-bottom: -25px;
 }
 
 .hideSpaceShip {
-   background: rgb(237, 248, 250);
+   background: rgb(200, 211, 250);
    outline: none
 }
 
@@ -38,14 +38,14 @@ margin-bottom: -25px;
    /* background: rgb(248, 2, 2); */
    /* text-align: center; */
    background-image: url('./img/fire1.jpg');
-   background-size: 40px 40px;
+   background-size: 42px 42px;
 }
 
 .shipWasNotFound {
    /* background: rgb(2, 248, 64); */
    text-align: center;
    background-image: url('./img/miss1.jpg');
-   background-size: 40px 40px;
+   background-size: 42px 42px;
 }
 .shipsCrashed{
    color: red;
@@ -69,4 +69,16 @@ margin-bottom: -25px;
    margin-top: 30px;
    margin-bottom: -25px;
    color: rgb(25, 0, 255);
+}
+.newGame {
+   background: rgb(193, 243, 205);
+   border: 1px solid green;
+   border-radius: 5px;
+}
+
+.resetResult {
+   margin: 0 0 20px 20px;
+   background: rgb(248, 194, 194);
+   border: 1px solid red;
+   border-radius: 5px;
 }
