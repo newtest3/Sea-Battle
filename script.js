@@ -1,6 +1,5 @@
 
-
-// --------------- Map of the user ships ---------------------
+// --------------- New Game Button ---------------------
 let newGame = document.createElement('button');
 newGame.classList.add('newGame');
 newGame.textContent = 'New game';
@@ -8,14 +7,29 @@ newGame.addEventListener('click', () => {
    window.location.reload();
 });
 
+// --------------- Reset Result Button-------------------
+let firstNum = Number(randomFunc(0, 100));
+let secondNum = Number(randomFunc(0, 100));
+
 let resetResult = document.createElement('button');
 resetResult.classList.add('resetResult');
 resetResult.textContent = 'Reset the best score';
 resetResult.addEventListener('click', () => {
-   localStorage.removeItem('key');
-   window.location.reload();
+
+   let answer = prompt(`Answer the question to erase the best score ${firstNum} + ${secondNum} ?`);
+
+   let resultAnswer = firstNum + secondNum;
+
+   if (answer == resultAnswer) {
+      localStorage.removeItem('key');
+      window.location.reload();
+   } else {
+      alert('Not the correct answer !');
+      window.location.reload();
+   }
 });
 
+// -------------- Main Function ------------------------
 let strNumClick = document.createElement('p');
 
 function user() {
@@ -215,6 +229,7 @@ function user() {
    strNumClick.textContent = `The best winning result is - ${Number(localStorage.getItem('key'))} clicks!`;
    //-------------------- strNumClick-------- 
 
+
    userMap__table.append(tbody);
    radioButton.append(radioButtonsShips);
    userMap.prepend(resetResult);
@@ -226,6 +241,7 @@ function user() {
 +function userFirst() {
    user();
 }();
+
 +function userSecond() {
    user();
 }();
@@ -312,18 +328,20 @@ function victoryGame() {
 
    function addStyle(item, distanceRight, distanceDown) {
       item.style.transform = `translate(${distanceRight}, ${distanceDown})`;
-      item.style.background = `rgb(${randomColor(1, 255)}, ${randomColor(1, 255)}, ${randomColor(1, 255)})`;
+      item.style.background = `rgb(${randomFunc(1, 255)}, ${randomFunc(1, 255)}, ${randomFunc(1, 255)})`;
       setTimeout(() => {
          item.style.opacity = '0';
       }, 1000);
    }
 
-   function randomColor(min, max) {
-      return String(Math.round(Math.random() * ((max - min) + min)));
 
-   }
+
    function addClass(item) {
       item.classList.add('circleAll');
    }
 }
 
+function randomFunc(min, max) {
+   return String(Math.round(Math.random() * ((max - min) + min)));
+
+}
