@@ -153,7 +153,7 @@ function user() {
                   recordClick.textContent = `You have ${summRecordClick} clicks!`;
 
                   if (positionShipObj[positionShip] == true) {
-
+                     tableData.classList.remove('flag');
                      tableData.classList.add('shipWasFound');
                      let fire = document.createElement('audio');
                      fire.src = './sound/fire.mp3';
@@ -199,9 +199,16 @@ function user() {
                tbody.append(shipsCrashed);
             }
             // ------ event contextMenu in Hide mode ------------------
-            tableData.addEventListener('contextmenu', event => {
-               event.preventDefault();
-               tableData.classList.toggle('flag');
+
+            tableData.addEventListener('contextmenu', function flagActive(event) {
+               if (tableData.classList.contains('shipWasFound') == false) {
+                  event.preventDefault();
+                  tableData.classList.toggle('flag');
+               } else {
+                  tableData.classList.remove('flag');
+                  this.removeEventListener('contextmenu', flagActive);
+               }
+
             });
          });
          // --------------------------------------------------------
