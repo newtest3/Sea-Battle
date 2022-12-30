@@ -51,6 +51,10 @@ margin-bottom: -25px;
 .shipsCrashed{
    color: red;
 }
+.flag {
+   background-image: url('./img/flag.jpg');
+   background-size: 37px 40px;
+}
 
 .radioButtonsShips {
    display: flex;
@@ -82,4 +86,10 @@ margin-bottom: -25px;
    background: rgb(248, 194, 194);
    border: 1px solid red;
    border-radius: 5px;
+}
+.strNumClick {
+   color: rgb(85, 84, 84);
+   font-size: 20px;
+   font-style: italic;
+   font-weight:600;
 }

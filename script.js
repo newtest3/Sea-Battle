@@ -16,7 +16,7 @@ resetResult.classList.add('resetResult');
 resetResult.textContent = 'Reset the best score';
 resetResult.addEventListener('click', () => {
 
-   let answer = prompt(`Answer the question to erase the best score ${firstNum} + ${secondNum} ?`);
+   let answer = prompt(`Answer the question to erase the best score: ${firstNum} + ${secondNum} ?`);
 
    let resultAnswer = firstNum + secondNum;
 
@@ -31,6 +31,7 @@ resetResult.addEventListener('click', () => {
 
 // -------------- Main Function ------------------------
 let strNumClick = document.createElement('p');
+strNumClick.classList.add('strNumClick');
 
 function user() {
 
@@ -171,7 +172,7 @@ function user() {
 
                         if (Number(localStorage.getItem('key')) == 0) {
                            localStorage.setItem('key', summRecordClick);
-                        } else if (summRecordClick <= Number(localStorage.getItem('key'))) {
+                        } else if (summRecordClick < Number(localStorage.getItem('key'))) {
                            alert('Great result. You set a new record!');
                            localStorage.removeItem('key');
 
@@ -197,9 +198,13 @@ function user() {
                shipsPaste.classList.add('hideElement')
                tbody.append(shipsCrashed);
             }
-
+            // ------ event contextMenu in Hide mode ------------------
+            tableData.addEventListener('contextmenu', event => {
+               event.preventDefault();
+               tableData.classList.toggle('flag');
+            });
          });
-
+         // --------------------------------------------------------
 
          radioButtonsShips.className = 'radioButtonsShips';
 
