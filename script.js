@@ -91,7 +91,7 @@ function user() {
          showShips.name = 'viewShips';
 
          showShips.addEventListener('click', event => {
-
+            hideShips.disabled = true;
             tableData.addEventListener('dblclick', () => {
                if (showShips.checked == true && numCrashedShips > 0) {
                   tableData.classList.remove('addColorTableData');
@@ -105,6 +105,9 @@ function user() {
             tableData.addEventListener('click', () => {
 
                if (i !== 0 && numPasteShips < 20 && positionShipObj[positionShip] == false) {
+                  showShips.disabled = true;
+                  hideShips.disabled = true;
+
                   numPasteShips++;
                   tableData.classList.remove('shipWasFound');
                   tableData.textContent = '';
@@ -138,11 +141,14 @@ function user() {
          hideShips.addEventListener('click', event => {
             let objClick = {};
             showShips.disabled = true;
+            hideShips.disabled = true;
 
             tableData.classList.add('hideSpaceShip');
 
 
             tableData.addEventListener('click', function fireShip() {
+               showShips.disabled = true;
+               hideShips.disabled = true;
 
                if (i !== 0) {
                   if (objClick[null] !== positionShip) {
@@ -182,6 +188,7 @@ function user() {
                         victoryGame();
                      }
                   } else {
+                     tableData.classList.remove('flag');
                      tableData.classList.add('shipWasNotFound');
                      let miss = document.createElement('audio');
                      miss.src = './sound/miss.mp3';
@@ -210,6 +217,7 @@ function user() {
                }
 
             });
+
          });
          // --------------------------------------------------------
 
