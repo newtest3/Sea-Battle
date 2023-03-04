@@ -18,9 +18,7 @@ resetResult.addEventListener('click', () => {
 
    let answer = prompt(`Answer the question to erase the best score: ${firstNum} + ${secondNum} ?`);
 
-   let resultAnswer = firstNum + secondNum;
-
-   if (answer == resultAnswer) {
+   if (answer == firstNum + secondNum) {
       localStorage.removeItem('key');
       window.location.reload();
    } else {
@@ -29,17 +27,116 @@ resetResult.addEventListener('click', () => {
    }
 });
 
-// -------------- Main Function ------------------------
+// -------------- MAIN FUNCTION ------------------------
+
+// ------------- Constructor Ship --------------------------
+
+
+class Ship {
+   constructor(name, size, ships, position) {
+      this.size = size;
+      this.name = name;
+      this.ships = ships;
+      this.position = position;
+   }
+
+   reduseSize() {
+      this.size--;
+   }
+   reduseShips() {
+      this.ships--;
+   }
+
+}
+let blockedPlaceShips = [];
+function blockedShips(arrShips, numShip, positionShipObj) {
+
+   arrShips.sort();
+   let arrBlockedFirstLast = [[Number(arrShips[0][0]) - 1, Number(arrShips[0][1])],
+   [Number(arrShips[0][0]), Number(arrShips[0][1]) - 1],
+   [Number(arrShips[numShip][0]) + 1, Number(arrShips[numShip][1])], [Number(arrShips[numShip][0]), Number(arrShips[numShip][1]) + 1]];
+   arrBlockedFirstLast.sort().forEach(elem => {
+      positionShipObj[elem] = null;
+      blockedPlaceShips.push(positionShipObj[elem]);
+   });
+}
+
+let summ = 0;
+// let firstShipObj = {},
+//    secondShipObj = {},
+//    thirthShipObj = {},
+//    fourthShipObj = {};
+
+// function activePositionShip(first, second, thirth, fourth, position) {
+//    summ++;
+
+//    if (first.ships == 0) {
+//       if (second.ships == 0) {
+//          if (thirth.ships == 0) {
+//             if (fourth.ships == 0) {
+
+//             } else {
+//                fourthShipObj[position] = null;
+//                console.log(summ, fourth.size, fourth.name, position, fourthShipObj);
+//                fourth.size--;
+//                if (fourth.size == 0) {
+//                   fourth.ships--;
+//                   fourth.size = 1;
+//                }
+
+//             }
+//          } else {
+//             thirthShipObj[position] = null;
+//             console.log(summ, thirth.size, thirth.name, position, thirthShipObj);
+//             thirth.size--;
+//             if (thirth.size == 0) {
+//                thirth.ships--;
+//                thirth.size = 2;
+//             }
+
+//          }
+//       } else {
+//          secondShipObj[position] = null;
+//          console.log(summ, second.size, second.name, position, secondShipObj);
+//          second.size--;
+//          if (second.size == 0) {
+//             second.ships--;
+//             second.size = 3;
+//          }
+//       }
+//    } else {
+//       firstShipObj[position] = null;
+//       console.log(summ, first.size, first.name, position, firstShipObj);
+
+//       first.size--;
+
+//       if (first.size == 0) {
+//          first.ships--;
+//       }
+
+//    }
+// }
+let arr = [];
+
+// ------------------------------------------------
+
+
+
 let strNumClick = document.createElement('p');
 strNumClick.classList.add('strNumClick');
 
 function user() {
+   // let firstShip = new Ship('very big', 4, 1);
+   // let secondShip = new Ship('big', 3, 2);
+   // let thirthShip = new Ship('small', 2, 3);
+   // let fourthShip = new Ship('lodka', 1, 4);
 
    let letters = 'ABCDEFGHIJ';
 
    let userMap__table = document.querySelector('.userMap__table');
    let userMap = document.querySelector('.userMap');
    let positionShipObj = {};
+
 
    let radioButton = document.querySelector('.radioButton');
 
@@ -51,6 +148,9 @@ function user() {
 
    let shipsPaste = document.createElement('p');
    shipsPaste.classList.add('shipsEnd');
+
+
+
    let shipsCrashed = document.createElement('p');
    shipsCrashed.classList.add('shipsEnd');
 
@@ -71,17 +171,33 @@ function user() {
          hideShips.disabled = false;
       }
    }
+   let objShips = {};
+   let arrShips = [];
+   let arrBlocked = [];
+
+   let arrBlockTableData = [];
 
    for (let i = 0; i <= 10; i++) {
       let tableRow = document.createElement('tr');
+      tableRow.classList.add('tableRow');
+      if (i !== 0) {
+         tableRow.classList.add('firstTableRow');
+      }
       tableRow.textContent = i;
+      // tableRow.classList.add('tableRow');
+
       tableRow.style.textAlign = 'center';
 
       for (let j = 0; j <= letters.length - 1; j++) {
          let tableData = document.createElement('td');
-         let positionShip = String(letters[j] + i);
-         positionShipObj[positionShip] = false;
+         if (j !== 0 || i == 0) {
+            tableData.classList.add('tableData');
+         }
+         // ---------------------------------------------
 
+         let positionShip = [i - 1, j];
+         positionShipObj[positionShip] = false;
+         // ===========================================================
 
          // -------------- Show Ships -----------------------
 
@@ -90,45 +206,186 @@ function user() {
          showShips.type = 'radio';
          showShips.name = 'viewShips';
 
+
          showShips.addEventListener('click', event => {
+
             hideShips.disabled = true;
-            tableData.addEventListener('dblclick', () => {
-               if (showShips.checked == true && numCrashedShips > 0) {
+
+            //------------ Remove ship -----------------------------------
+
+
+
+            tableData.addEventListener('contextmenu', event => {
+               event.preventDefault();
+               let removeShip,
+                  allBlocked = [];
+               if (showShips.checked == true && numCrashedShips > 0 && positionShipObj[positionShip] == true) {
+
+                  removeShip = [[Number(positionShip[0]) - 1, Number(positionShip[1]) - 1], [Number(positionShip[0]) - 1, Number(positionShip[1])], [Number(positionShip[0]) - 1, Number(positionShip[1]) + 1], [Number(positionShip[0]), Number(positionShip[1]) - 1], [Number(positionShip[0]), Number(positionShip[1]) + 1], [Number(positionShip[0]) + 1, Number(positionShip[1]) - 1], [Number(positionShip[0]) + 1, Number(positionShip[1])], [Number(positionShip[0]) + 1, Number(positionShip[1]) + 1]];
+
                   tableData.classList.remove('addColorTableData');
                   positionShipObj[positionShip] = false;
+
                   numPasteShips--;
                   shipsPaste.textContent = `You have ${numPasteShips} ships!`;
-                  disabledHideShips();
+
+                  removeShip.forEach(item => {
+                     if (positionShipObj[item] !== true) {
+                        positionShipObj[item] = false;
+                     }
+                  });
+                  console.log(positionShipObj);
+
+                  for (let item in positionShipObj) {
+
+                     if (positionShipObj[item] == true) {
+
+                        item = item.split(',');
+                        console.log(item);
+                        // console.log([positionShip[0], positionShip[1]])
+                        let blocked = [[Number(item[0]) + 1, Number(item[1]) + 1], [Number(item[0]) - 1, Number(item[1]) - 1], [Number(item[0]) - 1, Number(item[1]) + 1], [Number(item[0]) + 1, Number(item[1]) - 1]];
+
+                        blocked.forEach(item => {
+                           allBlocked.push(item);
+                        });
+
+                        // console.log(blocked);
+                     }
+
+                  }
+
+                  for (let item of allBlocked) {
+                     positionShipObj[item] = null;
+                  }
+                  console.log(positionShipObj);
+
                }
+
+               if (numPasteShips < 20) {
+                  hideShips.disabled = true;
+               }
+
+
             });
+
             tableData.classList.remove('hideSpaceShip');
+
+            // ----------- Add ship --------------------------
+
             tableData.addEventListener('click', () => {
 
-               if (i !== 0 && numPasteShips < 20 && positionShipObj[positionShip] == false) {
-                  showShips.disabled = true;
-                  hideShips.disabled = true;
+               if (positionShipObj[positionShip] !== null && numPasteShips < 20) {
+                  // activePositionShip(firstShip, secondShip, thirthShip, fourthShip, positionShip);
 
-                  numPasteShips++;
-                  tableData.classList.remove('shipWasFound');
-                  tableData.textContent = '';
-                  if (showShips.checked == true) {
-                     tableData.classList.add('addColorTableData');
-                     positionShipObj[positionShip] = true;
-                     let paste = document.createElement('audio');
-                     paste.src = './sound/paste.mp3';
-                     paste.autoplay = true;
-                     tableData.append(paste);
+                  if (i !== 0 && positionShipObj[positionShip] == false && showShips.checked == true) {
+
+                     hideShips.disabled = true;
+                     numPasteShips++;
+
+                     tableData.classList.remove('shipWasFound');
+                     tableData.textContent = '';
+                     if (showShips.checked == true) {
+                        arrShips.push(positionShip);
+                        // console.log(arrShips)
+                        tableData.classList.add('addColorTableData');
+                        positionShipObj[positionShip] = true;
+                        let paste = document.createElement('audio');
+                        paste.src = './sound/paste.mp3';
+                        paste.autoplay = true;
+                        tableData.append(paste);
+
+
+                        if (numPasteShips == 4) {
+                           blockedShips(arrShips, 3, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 7) {
+                           blockedShips(arrShips, 2, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 10) {
+                           blockedShips(arrShips, 2, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 12) {
+                           blockedShips(arrShips, 1, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 14) {
+                           blockedShips(arrShips, 1, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 16) {
+                           blockedShips(arrShips, 1, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 17) {
+                           blockedShips(arrShips, 0, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 18) {
+                           blockedShips(arrShips, 0, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 19) {
+                           blockedShips(arrShips, 0, positionShipObj);
+                           arrShips = [];
+                        }
+                        if (numPasteShips == 20) {
+                           blockedShips(arrShips, 0, positionShipObj);
+                           arrShips = [];
+                        }
+
+                        arrBlocked = [[Number(positionShip[0]) + 1, Number(positionShip[1]) + 1], [Number(positionShip[0]) - 1, Number(positionShip[1]) - 1], [Number(positionShip[0]) - 1, Number(positionShip[1]) + 1], [Number(positionShip[0]) + 1, Number(positionShip[1]) - 1]];
+
+
+                        arrBlocked.forEach(elem => {
+                           arrBlockTableData.push(elem);
+                           positionShipObj[elem] = null;
+                        });
+
+                     }
+                     // console.log(arrBlockTableData.sort());
+
+
+                  } else {
+                     tableData.classList.remove('shipWasFound');
+                     tableData.textContent = '';
+                     if (showShips.checked == true) {
+
+                        tableData.classList.add('addColorTableData');
+                        positionShipObj[positionShip] = true;
+
+                        let paste = document.createElement('audio');
+                        paste.src = './sound/paste.mp3';
+                        paste.autoplay = true;
+                        tableData.append(paste);
+
+                     }
+
                   }
+
+                  shipsPaste.textContent = `You have ${numPasteShips} ships!`;
+                  disabledHideShips();
+                  objShips[numPasteShips] = positionShip;
+
+                  // =======================================
+
+                  // console.log(blockedPlaceShips);
+                  // console.log(arrShips);
                }
-               shipsPaste.textContent = `You have ${numPasteShips} ships!`;
-               disabledHideShips();
+
+
 
             });
+
             if (event.type == 'click') {
 
                tbody.append(shipsPaste);
+
             }
          });
+
 
          // -------------- Hide Ships -----------------------
 
@@ -136,9 +393,11 @@ function user() {
          hideShips.classList.add('hideShips');
          hideShips.type = 'radio';
          hideShips.disabled = true;
+
          hideShips.name = 'viewShips';
 
          hideShips.addEventListener('click', event => {
+
             let objClick = {};
             showShips.disabled = true;
             hideShips.disabled = true;
@@ -187,6 +446,8 @@ function user() {
                         }
                         victoryGame();
                      }
+                     positionShipObj[positionShip] = null;
+                     console.log(positionShip, positionShipObj[positionShip])
                   } else {
                      tableData.classList.remove('flag');
                      tableData.classList.add('shipWasNotFound');
@@ -194,6 +455,7 @@ function user() {
                      miss.src = './sound/miss.mp3';
                      miss.autoplay = true;
                      tableData.append(miss);
+
                   }
                }
                tbody.append(recordClick);
@@ -208,17 +470,20 @@ function user() {
             // ------ event contextMenu in Hide mode ------------------
 
             tableData.addEventListener('contextmenu', function flagActive(event) {
-               if (tableData.classList.contains('shipWasFound') == false) {
+               if (tableData.classList.contains('shipWasNotFound') == true) {
+                  this.removeEventListener('contextmenu', flagActive);
+               } else if (tableData.classList.contains('shipWasFound') == false) {
                   event.preventDefault();
                   tableData.classList.toggle('flag');
                } else {
                   tableData.classList.remove('flag');
                   this.removeEventListener('contextmenu', flagActive);
-               }
+               };
 
             });
 
          });
+
          // --------------------------------------------------------
 
          radioButtonsShips.className = 'radioButtonsShips';
@@ -229,10 +494,9 @@ function user() {
          radioButtonsShips.append(hideName);
          radioButtonsShips.append(hideShips);
 
-         if (tableRow.textContent[0] == 0) {
-            tableRow.textContent = ':';
-         }
          if (i == 0) {
+
+
             tableData.textContent = letters[j];
             tableRow.append(tableData);
             tbody.append(tableRow);
@@ -243,6 +507,7 @@ function user() {
          tbody.append(tableRow);
       }
    }
+
 
 
    //-------------------- strNumClick-------- 
@@ -256,16 +521,11 @@ function user() {
    userMap.prepend(newGame);
 
    userMap.prepend(strNumClick);
+
 }
 
-+function userFirst() {
-   user();
-}();
-
-+function userSecond() {
-   user();
-}();
-
+user();
+user();
 
 
 // ------------------- Salute ---------------------------

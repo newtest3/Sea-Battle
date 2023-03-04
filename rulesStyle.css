@@ -1,0 +1,35 @@
+body {
+   background: rgb(200, 211, 250);
+}
+
+.wrraper {}
+
+.mainContent {
+   width: 50%;
+   margin: 20px 0 0 30px;
+
+}
+
+.rulesImage {
+   height: 500px;
+   position: absolute;
+   top: 50px;
+   right: 150px;
+   box-shadow: 0 0 5px 5px rgb(87, 87, 141);
+   border-radius: 3px;
+}
+.tittle {
+   font-style: italic;
+   font-weight: 600;
+   font-size: 20px;
+   margin-left: 10px;
+   letter-spacing: 0.5px;
+}
+.content {
+   line-height: 1.4;
+   letter-spacing: 0.5px;
+}
+.shipsName{
+   margin-left: 20px;
+   line-height: 10px;
+}
