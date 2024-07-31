@@ -405,7 +405,7 @@ function user() {
             tableData.classList.add('hideSpaceShip');
 
 
-            tableData.addEventListener('click', function fireShip() {
+            tableData.addEventListener('click', function fireShip(event) {
                showShips.disabled = true;
                hideShips.disabled = true;
 
@@ -418,6 +418,9 @@ function user() {
                   recordClick.textContent = `You have ${summRecordClick} clicks!`;
 
                   if (positionShipObj[positionShip] == true) {
+// Find the tableData
+                     console.log(positionShipObj[positionShip]);
+
                      tableData.classList.remove('flag');
                      tableData.classList.add('shipWasFound');
                      let fire = document.createElement('audio');
@@ -455,7 +458,8 @@ function user() {
                      miss.src = './sound/miss.mp3';
                      miss.autoplay = true;
                      tableData.append(miss);
-
+//miss table data
+                     console.log(positionShipObj[positionShip]);                     
                   }
                }
                tbody.append(recordClick);
