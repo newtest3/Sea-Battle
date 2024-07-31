@@ -1,0 +1,181 @@
+body {
+   background: rgb(200, 211, 250);
+}
+.wrapper{
+   min-height: 100%;
+}
+.container{
+   max-width: 1200px;
+   padding: 0px auto;
+   
+}
+
+ /* 320 - 480
+   481 - 768
+   769 - 1024
+   1025 - 1200
+ */
+
+@media (max-width:1200px) {
+   .container{
+      max-width: 970px;
+   }
+}
+  
+@media (max-width:992px) {
+   .container{
+      max-width: 750px;
+   }
+   .rules {
+      position: absolute;
+      top: 45px;
+      left: 40%;
+      width: 200px;
+   }
+}
+@media (max-width:769px) {
+   .userMap__table {
+      border-collapse: collapse;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-top: 20px;
+   }
+   .rules {
+      position: absolute;
+      top: 35px;
+      width: 200px;
+   }
+   .rulesText {
+      font-size: 14px;
+      color: rgb(16, 3, 151);
+      text-shadow: 1px 1px 2px rgb(45, 44, 59);
+   }
+}
+
+
+.rules {
+   position: absolute;
+   left: 42%;
+ 
+}
+
+.rulesText {
+   font-size: 22px;
+   color: rgb(16, 3, 151);
+   text-shadow: 1px 1px 2px rgb(45, 44, 59);
+}
+
+.userMap {
+   margin: 20px 0 0 20px;
+}
+
+.userMap__table {
+   border-collapse: collapse;
+   display: flex;
+   justify-content: space-around;
+}
+
+
+.tdata {
+   border: 2px solid black;
+   height: 40px;
+   width: 40px;
+   font-size: 30px;
+}
+
+.tableRow {
+   color: rgb(200, 211, 250)
+}
+
+.tableData {
+   color: rgb(16, 3, 151);
+   text-shadow: 1px 1px 2px rgb(62, 62, 78);
+}
+
+.firstTableRow {
+   color: rgb(16, 3, 151);
+   text-shadow: 1px 1px 2px rgb(45, 44, 59);
+   font-size: 20px;
+}
+
+.addColorTableData {
+   /* background: rgb(23, 243, 232); */
+   background-image: url('./img/ship.jpg');
+   background-size: 42px 42px;
+   /* outline: 2px solid green; */
+}
+
+.shipsEnd {
+   margin-bottom: -25px;
+}
+
+.hideSpaceShip {
+   background: rgb(200, 211, 250);
+   outline: none
+}
+
+.shipWasFound {
+   /* background: rgb(248, 2, 2); */
+   /* text-align: center; */
+   background-image: url('./img/fire1.jpg');
+   background-size: 42px 42px;
+}
+
+.shipWasNotFound {
+   /* background: rgb(2, 248, 64); */
+   text-align: center;
+   background-image: url('./img/miss1.jpg');
+   background-size: 42px 42px;
+}
+
+.shipsCrashed {
+   color: red;
+}
+
+.flag {
+   background-image: url('./img/flag.jpg');
+   background-size: 37px 40px;
+}
+
+.radioButtonsShips {
+   display: flex;
+   justify-content: space-around;
+   
+   width: 220px;
+}
+
+.radioButton {
+   display: flex;
+   justify-content: space-around;
+}
+
+.hideElement {
+   display: none;
+}
+
+.recordClick {
+   margin-top: 30px;
+   margin-bottom: -25px;
+   color: rgb(25, 0, 255);
+}
+
+.newGame {
+   background: rgb(193, 243, 205);
+   border: 1px solid green;
+   border-radius: 5px;
+}
+
+.resetResult {
+   margin: 0 0 20px 20px;
+   background: rgb(248, 194, 194);
+   border: 1px solid red;
+   border-radius: 5px;
+}
+
+.strNumClick {
+   color: rgb(85, 84, 84);
+   font-size: 20px;
+   font-style: italic;
+   font-weight: 600;
+}

@@ -1,0 +1,6 @@
+29.12:
+- updated new record;
+- style best score;
+
+30.12:
+-in Hide ship mode added flag to right click mouse

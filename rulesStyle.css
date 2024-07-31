@@ -1,0 +1,66 @@
+body {
+   background: rgb(200, 211, 250);
+}
+
+.wrraper {
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: space-around;
+}
+
+.mainContent {
+   max-width: 45%;
+}
+
+.rulesImage {
+   height: 500px;
+   /* position: absolute; */
+   top: 50px;
+   right: 150px;
+   box-shadow: 0 0 5px 5px rgb(87, 87, 141);
+   border-radius: 3px;
+}
+@media (max-width:1200px) {
+   .mainContent{
+      max-width: 50%;
+   }
+   .rulesImage{
+      height: 400px;
+   }
+}
+  
+@media (max-width:992px) {
+   .mainContent{
+      max-width: 45%;
+   }
+   
+}
+@media (max-width:769px) {
+   .wrraper{
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+   }
+   .mainContent{
+      max-width: none;
+   }
+   .tittle{
+      text-align: center;
+   }
+}
+.tittle {
+   font-style: italic;
+   font-weight: 600;
+   font-size: 20px;
+   margin-left: 10px;
+   letter-spacing: 0.5px;
+}
+.content {
+   line-height: 1.4;
+   letter-spacing: 0.5px;
+}
+.shipsName{
+   margin-left: 20px;
+   line-height: 10px;
+}
