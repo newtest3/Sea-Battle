@@ -515,7 +515,9 @@ function user() {
 
 
    //-------------------- strNumClick-------- 
+
    strNumClick.textContent = `The best winning result is - ${Number(localStorage.getItem('key'))} clicks!`;
+   
    //-------------------- strNumClick-------- 
 
 
